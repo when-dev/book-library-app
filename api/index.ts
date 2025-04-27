@@ -1,22 +1,26 @@
-const express = require('express')
-const cors = require('cors')
-const bookData = require('./data/books.json')
+import express, { Request, Response } from 'express'
+import cors from 'cors'
+import bookData from './data/books.json'
+
+interface Book {
+	title: string
+	author: string
+}
 
 const app = express()
-
 app.use(cors())
 
-function getRandomBook() {
+function getRandomBook(): Book {
 	const randomIndex = Math.floor(Math.random() * bookData.length)
 	const randomBook = bookData[randomIndex]
 	return randomBook
 }
 
-app.get('/random-book', (req, res) => {
+app.get('/random-book', (req: Request, res: Response) => {
 	res.json(getRandomBook())
 })
 
-app.get('/random-book-delayed', (req, res) => {
+app.get('/random-book-delayed', (req: Request, res: Response) => {
 	setTimeout(() => {
 		res.json(getRandomBook())
 	}, 2000)

@@ -8,12 +8,12 @@ export interface Book {
 	isFavorite: boolean
 }
 
-export interface BookWithId {
+export interface BookWithoutId {
 	title: string
 	author: string
 }
 
-const createBookWithId = (book: BookWithId, source: Book['source']): Book => {
+const createBookWithId = (book: BookWithoutId, source: Book['source']): Book => {
 	return {
 		...book,
 		source,

@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux'
 import { BsBookmarkStar, BsBookmarkStarFill } from 'react-icons/bs'
+import { useDispatch, useSelector } from 'react-redux'
 import {
 	deleteBook,
-	toggleFavorite,
 	selectBooks,
-} from '../../redux/slices/booksSlice'
+	toggleFavorite,
+} from '../../redux/slices/booksSlice.ts'
 import {
 	selectAuthorFilter,
 	selectOnlyFavoriteFilter,

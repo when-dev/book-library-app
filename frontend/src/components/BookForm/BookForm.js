@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { FaSpinner } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
+import booksData from '../../data/books.json'
 import {
 	addBook,
 	fetchBook,
 	selectIsLoadingViaAPI,
-} from '../../redux/slices/booksSlice'
+} from '../../redux/slices/booksSlice.ts'
 import { setError } from '../../redux/slices/errorSlice'
-import booksData from '../../data/books.json'
 import createBookWithId from '../../utils/createBookWithId'
 import './BookForm.css'
 

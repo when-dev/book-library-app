@@ -1,33 +1,41 @@
-import { BsBookmarkStar, BsBookmarkStarFill } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
+import { BsBookmarkStar, BsBookmarkStarFill } from 'react-icons/bs'
 import {
 	deleteBook,
 	selectBooks,
 	toggleFavorite,
-} from '../../redux/slices/booksSlice.ts'
+} from '../../redux/slices/booksSlice'
 import {
 	selectAuthorFilter,
 	selectOnlyFavoriteFilter,
 	selectTitleFilter,
 } from '../../redux/slices/filterSlice'
+import { Book } from '../../utils/createBookWithId'
+import { RootState, AppDispatch } from '../../redux/store'
 import './BookList.css'
 
 const BookList = () => {
-	const books = useSelector(selectBooks)
-	const titleFilter = useSelector(selectTitleFilter)
-	const authorFilter = useSelector(selectAuthorFilter)
-	const onlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter)
-	const dispatch = useDispatch()
+	const books = useSelector((state: RootState) => selectBooks(state))
+	const titleFilter = useSelector((state: RootState) =>
+		selectTitleFilter(state)
+	)
+	const authorFilter = useSelector((state: RootState) =>
+		selectAuthorFilter(state)
+	)
+	const onlyFavoriteFilter = useSelector((state: RootState) =>
+		selectOnlyFavoriteFilter(state)
+	)
+	const dispatch = useDispatch<AppDispatch>()
 
-	const handleDeleteBook = id => {
+	const handleDeleteBook = (id: string) => {
 		dispatch(deleteBook(id))
 	}
 
-	const handleToggleFavorite = id => {
+	const handleToggleFavorite = (id: string) => {
 		dispatch(toggleFavorite(id))
 	}
 
-	const filteredBooks = books.filter(book => {
+	const filteredBooks = books.filter((book: Book) => {
 		const matchesTitle = book.title
 			.toLowerCase()
 			.includes(titleFilter.toLowerCase())
@@ -38,21 +46,21 @@ const BookList = () => {
 		return matchesTitle && matchesAuthor && matchesFavorite
 	})
 
-	const highlightMatch = (text, filter) => {
+	const highlightMatch = (text: string, filter: string) => {
 		if (!filter) return text
 
 		const regex = new RegExp(`(${filter})`, 'gi')
 
 		return text.split(regex).map((substring, idx) => {
-			if (substring.toLowerCase() === filter.toLowerCase()) {
-				return (
-					<span key={idx} className='highlight'>
-						{substring}
-					</span>
-				)
-			}
-			return substring
-		})
+      if (substring.toLowerCase() === filter.toLowerCase()) {
+        return (
+          <span key={idx} className="highlight">
+            {substring}
+          </span>
+        );
+      }
+      return substring;
+    });
 	}
 
 	return (

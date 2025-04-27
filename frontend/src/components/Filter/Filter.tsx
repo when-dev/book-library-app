@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	setTitleFilter,
@@ -8,19 +9,26 @@ import {
 	selectAuthorFilter,
 	selectOnlyFavoriteFilter,
 } from '../../redux/slices/filterSlice'
+import { RootState, AppDispatch } from '../../redux/store'
 import './Filter.css'
 
 const Filter = () => {
-	const dispatch = useDispatch()
-	const titleFilter = useSelector(selectTitleFilter)
-	const authorFilter = useSelector(selectAuthorFilter)
-	const onlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter)
+	const dispatch = useDispatch<AppDispatch>()
+	const titleFilter = useSelector((state: RootState) =>
+		selectTitleFilter(state)
+	)
+	const authorFilter = useSelector((state: RootState) =>
+		selectAuthorFilter(state)
+	)
+	const onlyFavoriteFilter = useSelector((state: RootState) =>
+		selectOnlyFavoriteFilter(state)
+	)
 
-	const handleTitleFilterChange = e => {
+	const handleTitleFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
 		dispatch(setTitleFilter(e.target.value))
 	}
 
-	const handleAuthorFilterChange = e => {
+	const handleAuthorFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
 		dispatch(setAuthorFilter(e.target.value))
 	}
 

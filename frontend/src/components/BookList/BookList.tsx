@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux'
 import { BsBookmarkStar, BsBookmarkStarFill } from 'react-icons/bs'
 import {
 	deleteBook,
@@ -11,21 +10,15 @@ import {
 	selectTitleFilter,
 } from '../../redux/slices/filterSlice'
 import { Book } from '../../utils/createBookWithId'
-import { RootState, AppDispatch } from '../../redux/store'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import './BookList.css'
 
 const BookList = () => {
-	const books = useSelector((state: RootState) => selectBooks(state))
-	const titleFilter = useSelector((state: RootState) =>
-		selectTitleFilter(state)
-	)
-	const authorFilter = useSelector((state: RootState) =>
-		selectAuthorFilter(state)
-	)
-	const onlyFavoriteFilter = useSelector((state: RootState) =>
-		selectOnlyFavoriteFilter(state)
-	)
-	const dispatch = useDispatch<AppDispatch>()
+	const books = useAppSelector(selectBooks)
+	const titleFilter = useAppSelector(selectTitleFilter)
+	const authorFilter = useAppSelector(selectAuthorFilter)
+	const onlyFavoriteFilter = useAppSelector(selectOnlyFavoriteFilter)
+	const dispatch = useAppDispatch()
 
 	const handleDeleteBook = (id: string) => {
 		dispatch(deleteBook(id))
@@ -52,15 +45,15 @@ const BookList = () => {
 		const regex = new RegExp(`(${filter})`, 'gi')
 
 		return text.split(regex).map((substring, idx) => {
-      if (substring.toLowerCase() === filter.toLowerCase()) {
-        return (
-          <span key={idx} className="highlight">
-            {substring}
-          </span>
-        );
-      }
-      return substring;
-    });
+			if (substring.toLowerCase() === filter.toLowerCase()) {
+				return (
+					<span key={idx} className='highlight'>
+						{substring}
+					</span>
+				)
+			}
+			return substring
+		})
 	}
 
 	return (

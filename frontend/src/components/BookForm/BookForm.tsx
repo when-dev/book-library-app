@@ -1,5 +1,4 @@
 import { useState, FormEvent } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { FaSpinner } from 'react-icons/fa'
 import {
 	addBook,
@@ -8,7 +7,7 @@ import {
 } from '../../redux/slices/booksSlice'
 import { setError } from '../../redux/slices/errorSlice'
 import { BookWithoutId } from '../../utils/createBookWithId'
-import { RootState, AppDispatch } from '../../redux/store'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import booksData from '../../data/books.json'
 import createBookWithId from '../../utils/createBookWithId'
 import './BookForm.css'
@@ -16,8 +15,8 @@ import './BookForm.css'
 const BookForm = () => {
 	const [title, setTitle] = useState<string>('')
 	const [author, setAuthor] = useState<string>('')
-	const isLoadingViaAPI = useSelector((state: RootState) => selectIsLoadingViaAPI(state))
-	const dispatch = useDispatch<AppDispatch>()
+	const isLoadingViaAPI = useAppSelector(selectIsLoadingViaAPI)
+	const dispatch = useAppDispatch()
 
 	const handleRandomBook = () => {
 		const randomIndex = Math.floor(Math.random() * booksData.length)

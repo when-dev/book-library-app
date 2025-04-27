@@ -3,7 +3,7 @@ import booksReducer from './slices/booksSlice'
 import filterReducer from './slices/filterSlice'
 import errorReducer from './slices/errorSlice'
 
-const store = configureStore({
+export const store = configureStore({
 	reducer: {
 		books: booksReducer,
 		filter: filterReducer,
@@ -11,4 +11,7 @@ const store = configureStore({
 	},
 })
 
-export default store
+export type RootState = ReturnType<typeof store.getState>
+
+export type AppDispatch = typeof store.dispatch
+

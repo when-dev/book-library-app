@@ -13,12 +13,12 @@
     width: 80%;
     padding: 8px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #dae8f6;
     border-radius: 3px;
 }
 
 .book-form button {
-    background-color: #007bff;
+    background-color: #3a97fa;
     color: #fff;
     padding: 8px 12px;
     border: none;
